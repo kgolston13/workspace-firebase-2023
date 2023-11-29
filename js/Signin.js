@@ -44,8 +44,7 @@ $('#Login').submit(function (e) {
 });
 
 // add a google login choice here 
-$('#google').click(function (e) {
-  e.preventDefault();
+$('#google').click(function () {
   var provider = new firebase.auth.GoogleAuthProvider();
   firebase.auth()
   .signInWithPopup(provider)
