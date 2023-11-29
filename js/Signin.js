@@ -1,11 +1,11 @@
 const firebaseConfig = {
-  apiKey: "AIzaSyDZIAVnBvB-GHlaDDO2GbOFjQhVvleb344",
-  authDomain: "database2023test.firebaseapp.com",
-  projectId: "database2023test",
-  storageBucket: "database2023test.appspot.com",
-  messagingSenderId: "352598568614",
-  appId: "1:352598568614:web:b1acd2e65514f8050f8e67",
-  measurementId: "G-6EF9ZJX352"
+  apiKey: "AIzaSyCZaIrB-uIQxwuOEkNELGAW8zEbI6HlvoU",
+    authDomain: "database2023-40b3f.firebaseapp.com",
+    projectId: "database2023-40b3f",
+    storageBucket: "database2023-40b3f.appspot.com",
+    messagingSenderId: "677166105251",
+    appId: "1:677166105251:web:acf68fd55a5ffbdace3516",
+    measurementId: "G-D4WGR9SG8K"
 }; 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
@@ -13,10 +13,9 @@ firebase.initializeApp(firebaseConfig);
 // save the data
 $('#Login').submit(function (e) {
   e.preventDefault();
-  // get the user name and password from form
-  // You need to change this.
-  var email = 'yilianz4@gmail.com';
-  var password = 'ddsgagafda';
+  // get the user name and password from form using jQuery
+  let email = $('#login').val();
+  let password = $('#pwd').val();
 
   firebase
     .auth()
@@ -44,4 +43,24 @@ $('#Login').submit(function (e) {
     });
 });
 
-// add  a google login choice here 
+// add a google login choice here 
+$('#google').click(function (e) {
+  e.preventDefault();
+  var provider = new firebase.auth.GoogleAuthProvider();
+  firebase.auth()
+  .signInWithPopup(provider)
+  .then((result) => {
+    // The signed-in user info.
+    var user = result.user;
+    console.log("Sign in through google" + user);
+  }).catch((error) => {
+    // Handle Errors here.
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    // The email of the user's account used.
+    var email = error.email;
+    // The firebase.auth.AuthCredential type that was used.
+    var credential = error.credential;
+    // ...
+  });
+});
