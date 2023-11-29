@@ -22,6 +22,9 @@ $("#signup-form").submit(function(e) {
   //check if the password and confirm password are the same
   if (password != cpassword) {
     alert("Password and confirm password are not the same");
+    //clear the password and confirm password
+    $('input[name="password"]').val("");
+    $('input[name="cpassword"]').val("");
     return;
   }
 
@@ -29,11 +32,29 @@ $("#signup-form").submit(function(e) {
   firebase
     .auth()
     .createUserWithEmailAndPassword(email, password)
-    .then(user => {
+    .then(result => {
       // Signed in
       let user = result.user;
       user.updateProfile({
         displayName:username
+      }).then(()=>{
+        console.log("updated profile successfully");
+        console.log(user.displayName, " are signed up");
+
+        let date = "Wed, 29 November 2023 12:57:00 GMT";
+        let userinformation = {
+          "username": user.displayName,
+          "email": email,
+          "signupDate": date,
+          "lastLogin": date
+        };
+        // save the user information in the database
+        let db = firebase.firestore();
+        db.collestion("usertable").doc(user.displayName).set(userinformation).then(()=>{
+          console.log("user information saved successfully");
+          window.location.href = "Login.html";
+        });
+
       });
       console.log("You are signed up");
       //window.location.href = "Login.html";
