@@ -50,7 +50,7 @@ $("#signup-form").submit(function(e) {
         };
         // save the user information in the database
         let db = firebase.firestore();
-        db.collestion("usertable").doc(user.displayName).set(userinformation).then(()=>{
+        db.collection("usertable").doc(user.displayName).set(userinformation).then(()=>{
           console.log("user information saved successfully");
           window.location.href = "Login.html";
         });
